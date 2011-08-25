@@ -3,7 +3,7 @@
 Plugin Name: External Permalinks Redux
 Plugin URI: 
 Description: Allows users to point WordPress objects (posts, pages, custom post types) to a URL of your choosing. Inspired by and backwards-compatible with <a href="http://txfx.net/wordpress-plugins/page-links-to/">Page Links To</a> by Mark Jaquith. Written for use on WordPress.com VIP.
-Version: 1.0 
+Version: 1.0.1
 Author: Erick Hitter (Oomph, Inc.)
 Author URI: http://www.thinkoomph.com/
 */
@@ -43,6 +43,9 @@ class external_permalinks_redux {
 	 */
 	function action_admin_init() {
 		$post_types = apply_filters( 'epr_post_types', array( 'post', 'page' ) );
+		
+		if( !is_array( $post_types ) )
+			return;
 		
 		foreach( $post_types as $post_type )
 			add_meta_box( 'external-permalinks-redux', 'External Permalinks Redux', array( $this, 'meta_box' ), $post_type, 'normal' );
@@ -158,4 +161,19 @@ class external_permalinks_redux {
 global $external_permalinks_redux;
 if( !is_a( $external_permalinks_redux, 'external_permalinks_redux' ) )
 	$external_permalinks_redux = new external_permalinks_redux;
+
+/*
+ * Wrapper for meta box function
+ * Can be used as an alternative to the epr_post_types filter found in the plugin classes's action_admin_init function.
+ * @param object $post
+ * @uses $external_permalinks_redux
+ * @return string
+ */
+function external_permalinks_redux_meta_box( $post ) {
+	global $external_permalinks_redux;
+	if( !is_a( $external_permalinks_redux, 'external_permalinks_redux' ) )
+		$external_permalinks_redux = new external_permalinks_redux;
+	
+	$external_permalinks_redux->meta_box( $post );
+}
 ?>
