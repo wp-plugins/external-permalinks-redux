@@ -3,7 +3,7 @@ Contributors: ethitter, thinkoomph
 Donate link: http://www.thinkoomph.com/plugins-modules/external-permalinks-redux/
 Tags: link, redirect, external link, permalink
 Requires at least: 3.0
-Tested up to: 3.3
+Tested up to: 3.4
 Stable tag: 1.0.1
 
 Allows you to point WordPress objects (posts, pages, custom post types) to a URL of your choosing.
